@@ -1,0 +1,15 @@
+#!/usr/bin/env python3
+
+import os;
+from os import walk;
+from pathlib import Path;
+
+for (dirpath, directories, files) in walk('./'):
+	for d in directories:
+		for (dirpath2, directories2, files2) in walk(str(Path(dirpath, d))):
+			for f in files2:
+				new_f = f.replace('#','s');
+				if f != new_f:
+					os.rename( dirpath2+'/'+f, dirpath2+'/'+new_f );
+
+print(' Done');

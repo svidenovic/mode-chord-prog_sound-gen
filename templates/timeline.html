@@ -1,0 +1,92 @@
+
+{% for chord in mytimeline %}
+	
+	{% if chord.name == 'Pause' %}
+		<div class='container timelineChordPause' chord-id='{{ chord.id }}' >
+			
+			<label> <b>PAUSE</b> </label>
+			<div class='spacer' ></div>
+			
+			<label> Duration: </label> 
+			<select class='form-control durationSelect' chord-id='{{ chord.id }}' >
+				{% for dur in durations %}
+					{% if dur == chord.duration %}
+						<option selected > 1/{{ dur }} </option>
+					{% else %}
+						<option> 1/{{ dur }} </option>
+					{% endif %}
+				{% endfor %}
+			</select>
+			
+			<button class='btn btn-primary updateChordBtn' chord-id='{{ chord.id }}' title='Save changes if any' > 
+				Save <span></span>
+			</button>
+			<button class='btn btn-default removeChordBtn' chord-id='{{ chord.id }}' title='Remove chord' > 
+				Remove
+			</button>
+			<button class='btn btn-default moveLeftChordBtn' chord-id='{{ chord.id }}' title='Move chord left' > 
+				◄
+			</button>
+			<button class='btn btn-default moveRightChordBtn' chord-id='{{ chord.id }}' title='Move chord right' > 
+				►
+			</button>
+			
+		</div>
+	
+	{% else %}
+		<div class='container timelineChord' chord-id='{{ chord.id }}' >
+			<div class='timelineChordImg' style="
+				 background-image: url('{{ chord.img_file }}');
+				 background-position: {{ chord.img_position }};
+			" ></div>
+			
+			<label> Duration: </label> 
+			<select class='form-control durationSelect' chord-id='{{ chord.id }}' >
+				{% for dur in durations %}
+					{% if dur == chord.duration %}
+						<option selected > 1/{{ dur }} </option>
+					{% else %}
+						<option> 1/{{ dur }} </option>
+					{% endif %}
+				{% endfor %}
+			</select>
+			
+			<label> Octave: </label>
+			<select class='form-control octaveSelect' chord-id='{{ chord.id }}' >
+				{% for oct in octaves %}
+					{% if oct == chord.octave %}
+						<option selected > {{ oct }} </option>
+					{% else %}
+						<option> {{ oct }} </option>
+					{% endif %}
+				{% endfor %}
+			</select>
+			
+			<label> Position: </label>
+			<select class='form-control positionSelect' chord-id='{{ chord.id }}' >
+				{% for pos in positions[0] %}
+					{% if positions[1][pos-1] == chord.img_position %}
+						<option selected > {{ pos }} </option>
+					{% else %}
+						<option> {{ pos }} </option>
+					{% endif %}
+				{% endfor %}
+			</select>
+			
+			<button class='btn btn-primary updateChordBtn' chord-id='{{ chord.id }}' title='Save changes if any' > 
+				Save {{ chord.name }}<span></span>
+			</button>
+			<button class='btn btn-default moveLeftChordBtn' chord-id='{{ chord.id }}' title='Move chord left' > 
+				◄
+			</button>
+			<button class='btn btn-default removeChordBtn' chord-id='{{ chord.id }}' title='Remove chord' > 
+				Remove
+			</button>
+			<button class='btn btn-default moveRightChordBtn' chord-id='{{ chord.id }}' title='Move chord right' > 
+				►
+			</button>
+			 
+		</div>
+	{% endif %}
+	
+{% endfor %}

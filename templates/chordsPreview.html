@@ -1,0 +1,21 @@
+
+<div class='container chordBtnsHolder' >
+	{% for chord_img in chord_imgs %}
+		<button class='btn chordBtn' chord-number="{{ chord_img['number'] }}" > 
+			<span>{{ chord_img['number'] }}</span> {{ chord_img['name'] }} 
+		</button>
+	{% endfor %}
+</div>
+
+<div class='container chordImgPreview' >
+	{% for chord_img in chord_imgs %}
+		<img class='chordImgDiagram'
+			 chord-number="{{ chord_img['number'] }}" 
+			 src="{{ chord_img['file_path'] }}"
+		/>
+	{% endfor %}
+</div>
+
+<button class='btn btn-default add2timelineBtn' selected-chord='' >
+	Add <span></span> to timeline 
+</button>

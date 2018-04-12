@@ -1,0 +1,263 @@
+
+body {
+	background-color: #E1E1E1;
+}
+
+div.MainSelect {
+	width: 650px;
+	background-color: #E9E9E9;
+	margin: 20px auto 10px auto;
+	padding: 10px;
+	border-radius: 5px;
+	box-shadow: 1px 1px 5px #909090;
+}
+
+p.labelForSelect {
+	float: left;
+	width: 230px;
+	text-align: center;
+	background-color: transparent;
+	margin-bottom: 0;
+	margin-top: 8px;
+}
+
+select.selectKey {
+	width: 80px;
+	float: left;
+	margin-right: 5px;
+}
+
+select.selectMode {
+	width: 230px;
+	float: left;
+	margin-right: 5px;
+}
+
+btn.goBtn {
+	float: left;
+}
+
+div.chordHolder {
+	width: 850px;
+	height: auto;
+	background-color: #E9E9E9;
+	margin: 10px auto 10px auto;
+	padding: 0 20px 5px 20px;
+	border-radius: 5px;
+	box-shadow: 1px 1px 5px #909090;
+}
+
+div.chordBtnsHolder {
+	display: fit-content;
+	margin: 0 auto 0 auto;
+	padding: 0;
+	background-color: trasnparent;
+}
+
+button.chordBtn {
+	margin: 0;
+	border-bottom: 3px solid #BDBDBD;
+	border-bottom-color: #BDBDBD;
+	background-color: transparent;
+}
+button.chordBtn:hover { color: #8A8A8A; }
+
+button.chordBtn span { color: #6997CE; }
+
+img.chordImgDiagram {
+	display: block;
+	width: 400px;
+	height: 267px;
+	margin: 20px auto 0 auto;
+}
+
+button.add2timelineBtn {
+	display: block;
+	margin: 10px auto 0 auto;
+}
+button.add2timelineBtn:hover {
+	background-color: #70BC84; color: white;
+}
+
+
+div.timelineControls {
+	width: 100%;
+	height: 60px;
+	background-color: #E9E9E9;
+	margin: 10px auto 0 auto;
+	border-radius: 5px;
+	box-shadow: 1px 1px 5px #909090;
+}
+
+div.timelineControls button {
+	margin: 5px 5px 0 0;
+	float: left;
+}
+div.timelineControls button:hover {
+	background-color: #70BC84; color: white;
+}
+div.timelineControls .ClearTimelineBtn {
+	float: right;
+}
+
+div.timelineControls select.soundSampleSelect {
+	float: left;
+	width: 210px;
+	margin: 5px 10px 0 20px;
+}
+
+div.timelineControls .loopCheckbox {
+	margin: 15px 0 0 5px;
+	float: left;
+}
+
+
+div.timelineDiv {
+	width: 100%;
+	height: 470px;
+	display: flex;
+	background-color: #E9E9E9;
+	margin: 0 auto 20px auto;
+	padding: 0;
+	border-radius: 5px;
+	border: 5px solid #E9E9E9;
+	overflow-x: scroll;
+	overflow-y: hidden;
+	box-shadow: 1px 1px 5px #909090;
+}
+
+div.timelineChordPause {
+	width: 90px;
+	height: 435px;
+	display: inline-block;
+	float: left;
+	background-color: white;
+	margin: 0 5px 0 0;
+	padding: 5px;
+	border-radius: 3px;
+}
+div.timelineChordPause select {
+	position: relative;
+	float: left;
+	width: 60px;
+	height: 50px;
+	padding: 0;
+	margin: 0 10px 5px 10px;
+	font-size: 18px;
+	border-radius: 0;
+	border: none;
+	color: black;
+}
+div.timelineChordPause label {
+	float: left;
+	width: 80px;
+	margin: 0;
+	padding: 0;
+	font-size: 16px;
+	background-color: transparent;
+	color: black;
+	text-align: center;
+}
+div.timelineChordPause .spacer {
+	width: 80px;
+	height: 221px;
+	float: left;
+	margin: 0;
+	padding: 0;
+	background-color:transparent;
+}
+
+div.timelineChordPause .updateChordBtn {
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	border: none;
+}
+div.timelineChordPause .removeChordBtn {
+	width: 100%;
+}
+div.timelineChordPause .moveLeftChordBtn, 
+div.timelineChordPause .moveRightChordBtn {
+	width: 46%;
+}
+
+div.timelineChord {
+	width: 210px;
+	height: 435px;
+	display: inline-block;
+	float: left;
+	background-color: white;
+	margin: 0 5px 0 0;
+	padding: 5px;
+	border-radius: 3px;
+}
+
+div.timelineChordImg {
+	width: 200px;
+	height: 200px;
+	float: left;
+	background-color: white;
+	background-position: 0 0;
+}
+
+div.timelineChord label {
+	float: left;
+	width: 120px;
+	height: 47px;
+	padding: 0 0 0 10px;
+	margin: 0 0 5px 0;
+	padding: 10px 10px 0 10px;
+	font-size: 18px;
+	background-color: white;
+	color: black;
+	text-align: right;
+}
+div.timelineChord select {
+	position: relative;
+	float: left;
+	width: 60px;
+	height: 50px;
+	padding: 0;
+	margin: 0 0 5px 0;
+	font-size: 18px;
+	border-radius: 0;
+	border: none;
+	color: black;
+}
+
+button.updateChordBtn {
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	border: none;
+}
+
+button.removeChordBtn {
+	width: 54%;
+	padding: 0;
+	margin: 5px 0 0 0;
+	border: none;
+	outline: none;
+	color: white;
+	background-color: #CACACA;
+}
+button.removeChordBtn:hover { background-color: #BC7070; }
+
+button.moveLeftChordBtn, button.moveRightChordBtn {
+	width: 20%;
+	padding: 0;
+	margin: 5px 0 0 0;
+	border: none;
+	outline: none;
+	color: white;
+	background-color: #CACACA;
+}
+button.moveLeftChordBtn:hover  { background-color: #70BC84; }
+button.moveRightChordBtn:hover { background-color: #70BC84; }
+
+.whomadethis {
+	width: 100%;
+	text-align: center;
+	color: #7A7A7A;
+	margin: 0 0 50px 0
+}

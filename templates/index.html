@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8"/>
+    <title> Mode Chord Progressions </title>
+    <script src="{{ url_for( 'static', filename='jquery-3.3.1.min.js' ) }}" ></script>
+	<script src="{{ url_for( 'static', filename='bootstrap-4.0.0-dist/js/bootstrap.min.js' ) }}" ></script>
+	<link rel="stylesheet" type="text/css"
+		  href="{{ url_for( 'static', filename='bootstrap-4.0.0-dist/css/bootstrap.min.css' ) }}" />
+	
+	<link rel="stylesheet" type="text/css"
+		  href="{{ url_for( 'static', filename='style.css' ) }}" />
+	<script src="{{ url_for( 'static', filename='main.js' ) }}" ></script>
+</head>
+<body>
+	
+	<div class='container MainSelect'>
+		<p class='labelForSelect'> Select Key & Mode: </p>
+		<select class='form-control selectKey'>
+			<option> A </option>
+			<option> A# </option>
+			<option> B </option>
+			<option> C </option>
+			<option> C# </option>
+			<option> D </option>
+			<option> D# </option>
+			<option> E </option>
+			<option> F </option>
+			<option> F# </option>
+			<option> G </option>
+			<option> G# </option>
+		</select>
+		<select class='form-control selectMode'>
+			<option> Ionian (major) </option>
+			<option> Dorian </option>
+			<option> Phrygian </option>
+			<option> Lydian </option>
+			<option> Mixolydian </option>
+			<option> Aeolian (minor) </option>
+			<option> Locrian </option>
+		</select>
+		<button class='btn btn-primary goBtn' > GO </button>
+	</div>
+	
+	<div class='container chordHolder' ></div>
+	
+	<div class='container timelineControls' >
+		<button class='btn btn-default insertPauseBtn' > Insert Pause </button>
+		<select class='form-control soundSampleSelect' >
+			<option ss='1' > Sound Sample 1 </option>
+			<option ss='2' > Sound Sample 2 </option>
+			<option ss='3' > Sound Sample 3 </option>
+		</select>
+		<button class='btn btn-default generateWavBtn' > Generate WAV <span></span> </button>
+		<button class='btn btn-default playStopBtn' > Play </button>
+		<div class="checkbox loopCheckbox">
+			<label><input type="checkbox" value=""> Loop </label>
+		</div>
+		<button class='btn btn-default ClearTimelineBtn' > Clear timeline </button>
+	</div>
+	<div class='container timelineDiv' ></div>
+	
+	<p class="whomadethis"> <b>©</b> 2018 - Stefan Videnović </p>
+	
+	<audio id='timeline_wav' src='' playing='false' />
+	
+</body>
+</html>

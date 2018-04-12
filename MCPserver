@@ -1,0 +1,163 @@
+#!/usr/bin/env python3
+
+from flask import Flask, render_template, request, Response, url_for;
+import json, time;
+
+from myutil import get_chord_imgs;
+from myvalidate import validate_key_mode;
+from MyChord import MyChord;
+from MyTimeline import MyTimeline;
+from WAV_generator import create_WAV_from_timeline, remove_all_wavs, get_wav_path, get_pysynth;
+
+def fix_url_for( pre_dir, file_name ):
+	tmp = url_for( pre_dir, filename=file_name );
+	if tmp[0] == '/':
+		tmp = tmp[1:];
+	return tmp;
+
+app = Flask(__name__);
+
+mytimeline = MyTimeline();
+
+@app.route('/')
+def index():
+	return render_template('index.html');
+
+
+@app.route('/chords/<key_mode>', methods=['GET'])
+def get_chords_preview( key_mode ):
+	
+	if validate_key_mode( key_mode ):
+		chord_imgs = get_chord_imgs( key_mode );
+		return render_template( 'chordsPreview.html', chord_imgs=chord_imgs );
+	
+	else:
+		errorMsg = ' Not a valid key or mode in \"{}\") '.format(key_mode);
+		return render_template( 'errorMsg.html', msg=errorMsg )
+	
+
+
+@app.route('/timeline/chord', methods=['POST'])
+def add_chord_to_timeline():
+	data = request.get_json();
+	
+	if data:
+		mychord = MyChord();
+		mychord.create_from( data );
+		mytimeline.add_chord( mychord );
+		return Response('Chord added to timeline', status=200);
+	else:
+		return Response('No chord sent', status=200);
+
+
+@app.route('/timeline/chord/<chord_id>', methods=['PUT'])
+def edit_chord_on_timeline( chord_id ):
+	data = request.get_json();
+	
+	if data:
+		newchord = MyChord();
+		newchord.create_from( data ); # has dummy data
+		
+		mychord = mytimeline.get_chord( int(chord_id) );
+		mychord.update( newchord );
+		
+		return Response('Chord edited', status=200);
+	else:
+		return Response('No chord sent', status=200);
+
+
+@app.route('/timeline/chord/<chord_id>', methods=['DELETE'])
+def delete_chord_from_timeline( chord_id ):	
+	mytimeline.delete_chord( int(chord_id) );
+	
+	return Response('Chord removed', status=200);
+
+
+@app.route('/timeline/chord/<chord_id>/move/<move>', methods=['PUT'])
+def move_chord_on_timeline( chord_id, move ):
+	if move == 'left' or move == 'right':
+		mytimeline.move_chord( int(chord_id), move );
+		
+		return Response('Chord moved', status=200);
+	else:
+		return Response('Invalid move statement', status=200);
+
+
+@app.route('/timeline', methods=['GET'])
+def get_timeline_chords():
+	
+	durations = [1,2,4,8,16];
+	octaves = [1,2,3,4,5,6,7];
+	positions = [
+		[1,2,3,4,5,6],
+		['0 0', '-200px 0', '-400px 0', '0 -200px', '-200px -200px', '-400px -200px']
+	];
+	
+	return render_template( 
+		'timeline.html', 
+		mytimeline = mytimeline.get_timeline(), 
+		durations = durations,
+		octaves = octaves,
+		positions = positions
+	);
+
+@app.route('/timeline/clear', methods=['GET'])
+def clear_timeline_():
+	mytimeline.clear_timeline();
+	
+	wavs_dir = fix_url_for( 'static', '' );
+	
+	remove_all_wavs( wavs_dir );
+	
+	return Response( 'Timeline cleared', status=200 );
+
+
+@app.route('/timeline/wav/generate/<sound_sample>', methods=['GET'])
+def generate_wav_from_timeline( sound_sample ):
+	if len(mytimeline.get_timeline()) < 2:
+		return Response(' Need at least 2 items on the timeline ', status=500);
+	
+	else:
+		wavs_dir = fix_url_for( 'static', '' );
+		
+		remove_all_wavs( wavs_dir );
+		
+		wav_path = 'timeline.{}.wav'.format(time.time());
+		wav_path = fix_url_for( 'static', wav_path );
+		
+		sound_sample = int(sound_sample);
+		if not( sound_sample == 1 or sound_sample == 2 or sound_sample == 3):
+			sound_sample = 3;
+		
+		mytimeline.sound_sample = sound_sample;
+			
+		pysynth_ = get_pysynth( sound_sample );
+		wav_path = create_WAV_from_timeline( mytimeline, wav_path, pysynth_ );
+		
+		return Response( wav_path, status=200);
+		
+		#~ return Response(' Error: WAV not created. ', status=500);
+
+
+@app.route('/timeline/wav/get/path', methods=['GET'])
+def get_wav_path_():
+	
+	wavs_dir = fix_url_for( 'static', '' );
+	
+	wav_path = get_wav_path( wavs_dir );
+	if wav_path:
+		return Response( wav_path, status=200);
+	else:
+		return Response( ' Error getting wav file path ', status=500);
+
+
+@app.route('/timeline/get/sound_sample', methods=['GET'])
+def get_sound_sample_():
+	ss = str(mytimeline.sound_sample);
+	return Response( ss, status=200 );
+
+
+#~ ------------------------------------------------------------------------
+
+if __name__=='__main__':
+	app.run(debug=True);
